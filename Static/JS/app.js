@@ -30,25 +30,45 @@ var tbody = d3.select("tbody");
 
 // Build a function to filter by date
   function handleClick() {
+    // Testing console.log("hello");
     // Grab the datetime value from the filter
-    let date = d3.select("#datetime").property("value");
+    let date = d3.select("#enterdate").property("value").toString().split("-");
+    var date1 = date[1];
+    // Testing date through console.log(date1);
+    if (date1.substring(0,1) == "0") {
+      var dmth = date1.substring(1,2);
+    }
+      else { 
+      var dmth = date1;
+    }
+    var date2 = date[2];
+    if (date2.substring(0,1) == "0") {
+      var dday = date2.substring(1,2);
+    }
+      else { 
+      var dday = date2;
+    }
+    var dateString = dmth + "/" + dday + "/" + date[0];
+
+    console.log(dateString);
+
     let filteredData = tableData;
-  
+  console.log(filteredData);
      // Check to see if a date was entered and filter the
     // data using that date.
     if (date) {
       // Apply `filter` to the table data to only keep the
       // rows where the `datetime` value matches the filter value
-      filteredData = filteredData.filter(row => row.datetime === date);
+      filteredData = filteredData.filter(row => row.datetime == dateString);
     };
-  
+    console.log(filteredData);
      // Rebuild the table using the filtered data
     // @NOTE: If no date was entered, then filteredData will
     // just be the original tableData.
     buildTable(filteredData);
   };
 
-  function handleClick() {
+  function handleClick2() {
     // Grab the datetime value from the filter
     let date = d3.select("#datetime").property("value");
     let filteredData = tableData;
